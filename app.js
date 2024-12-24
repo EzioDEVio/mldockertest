@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const tf = require('@tensorflow/tfjs-node');
+const he = require('he');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -29,7 +30,7 @@ app.post('/predict', async (req, res) => {
     res.json(prediction);
   } catch (error) {
     console.error(error);
-    res.status(500).send(error.message);
+    res.status(500).send(he.encode(error.message));
   }
 });
 
